@@ -29,7 +29,7 @@
 #    NIS Domain
 #
 #  [*nisserver*]
-#    NIS Server
+#    NIS Server. Pass a string or an array.
 #
 #  [*shadow*]
 #    Enable shadow password
@@ -277,7 +277,10 @@ class authconfig (
         $nisdomain_val = "--nisdomain=${nisdomain}"
       }
 
-      if $nisserver {
+      if (is_array($nisserver)) {
+        $niss_joined = join($nisserver, ',')
+        $nisserver_val = "--nisserver=${niss_joined}"
+      } else {
         $nisserver_val = "--nisserver=${nisserver}"
       }
 
