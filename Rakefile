@@ -19,6 +19,13 @@ PuppetLint.configuration.send('disable_80chars')
 PuppetLint.configuration.ignore_paths = exclude_path
 PuppetSyntax.exclude_paths = exclude_path
 
+module TempFixForRakeLastComment
+  def last_comment
+    last_description
+  end
+end
+Rake::Application.send :include, TempFixForRakeLastComment
+
 namespace :module do
   desc "Build #{NAME} module (in a clean env, for puppetforge)"
   task :build do
